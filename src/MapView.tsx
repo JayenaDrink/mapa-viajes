@@ -1,5 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { GeoJSON, MapContainer, Marker, Polyline, Popup, TileLayer, useMapEvents } from 'react-leaflet'
+import {
+  GeoJSON,
+  LayerGroup,
+  LayersControl,
+  MapContainer,
+  Marker,
+  Polyline,
+  Popup,
+  TileLayer,
+  useMapEvents,
+} from 'react-leaflet'
 import L, { type Map as LMap } from 'leaflet'
 import { feature } from 'topojson-client'
 import type { Feature, FeatureCollection, Geometry } from 'geojson'
@@ -122,12 +132,39 @@ export default function MapView(p: Props) {
         }
       }}
     >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-        url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-        subdomains="abcd"
-        maxZoom={19}
-      />
+      <LayersControl position="bottomright">
+        <LayersControl.BaseLayer checked name="Claro">
+          <LayerGroup>
+            <TileLayer
+              attribution="Tiles &copy; Esri &mdash; Esri, HERE, Garmin, &copy; OpenStreetMap"
+              url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}"
+              maxNativeZoom={16}
+              maxZoom={19}
+            />
+            <TileLayer
+              url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}"
+              maxNativeZoom={16}
+              maxZoom={19}
+              pane="shadowPane"
+            />
+          </LayerGroup>
+        </LayersControl.BaseLayer>
+        <LayersControl.BaseLayer name="Calles">
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+            maxZoom={19}
+          />
+        </LayersControl.BaseLayer>
+        <LayersControl.BaseLayer name="Satélite">
+          <TileLayer
+            attribution="Tiles &copy; Esri &mdash; Maxar, Earthstar Geographics"
+            url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+            maxNativeZoom={18}
+            maxZoom={19}
+          />
+        </LayersControl.BaseLayer>
+      </LayersControl>
 
       {capaPaises && capaPaises.features.length > 0 && (
         <GeoJSON
