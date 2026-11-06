@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import type { Lugar } from './supabase'
-import { bandera, nombrePais, TOTAL_PAISES } from './countries'
+import { nombrePais, TOTAL_PAISES } from './countries'
+import Bandera from './Bandera'
 
 export type Filtros = { estado: 'todos' | 'visitado' | 'pendiente'; anio: string; viaje: string }
 
@@ -146,7 +147,7 @@ export default function Sidebar(p: Props) {
                     p.onIrPais(g.codigo)
                   }}
                 >
-                  <span className="pais__flag">{bandera(g.codigo)}</span>
+                  <span className="pais__flag"><Bandera codigo={g.codigo} /></span>
                   <span>{g.nombre}</span>
                   <span className="pais__n">{g.lugares.length}</span>
                   <span className="pais__chev" aria-hidden>

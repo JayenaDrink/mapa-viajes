@@ -268,3 +268,6 @@ label.pais__color { cursor: pointer; }
   .leaflet-bottom.leaflet-right { margin-bottom: 14px; }
   .form__fila { grid-template-columns: 1fr; }
 }
+
+.bandera { display: inline-block; border-radius: 2px; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08); object-fit: cover; vertical-align: -2px; flex: none; }
+.form__flag .bandera { border-radius: 4px; }

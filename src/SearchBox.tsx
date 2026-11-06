@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { buscar, type Resultado } from './geo'
 import type { Lugar } from './supabase'
-import { bandera, nombrePais } from './countries'
+import { nombrePais } from './countries'
+import Bandera from './Bandera'
 
 type Props = {
   lugares: Lugar[]
@@ -40,7 +41,7 @@ export default function SearchBox({ lugares, editable, onResultado, onLugar }: P
       } finally {
         setCargando(false)
       }
-    }, 350)
+    }, 450)
     return () => {
       clearTimeout(id)
       ctrl.abort()
@@ -109,7 +110,7 @@ export default function SearchBox({ lugares, editable, onResultado, onLugar }: P
                 elegir(i)
               }}
             >
-              <span className="buscador__flag">{bandera(l.pais_codigo)}</span>
+              <span className="buscador__flag"><Bandera codigo={l.pais_codigo} alto={16} /></span>
               <span className="buscador__txt">
                 <strong>{l.nombre}</strong>
                 <small>{l.detalle || nombrePais(l.pais_codigo, l.pais)}</small>
@@ -130,7 +131,7 @@ export default function SearchBox({ lugares, editable, onResultado, onLugar }: P
                   elegir(i)
                 }}
               >
-                <span className="buscador__flag">{bandera(r.pais_codigo)}</span>
+                <span className="buscador__flag"><Bandera codigo={r.pais_codigo} alto={16} /></span>
                 <span className="buscador__txt">
                   <strong>{r.nombre}</strong>
                   <small>{r.detalle || nombrePais(r.pais_codigo, r.pais)}</small>

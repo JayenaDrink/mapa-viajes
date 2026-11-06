@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { Borrador, Lugar } from './supabase'
-import { bandera, nombrePais } from './countries'
+import { nombrePais } from './countries'
+import Bandera from './Bandera'
 
 type Props = {
   inicial: Borrador
@@ -28,7 +29,7 @@ export default function PlaceForm({ inicial, viajes, duplicado, guardando, onGua
         }}
       >
         <header className="form__cab">
-          <span className="form__flag">{bandera(b.pais_codigo)}</span>
+          <span className="form__flag"><Bandera codigo={b.pais_codigo} alto={26} /></span>
           <div>
             <h2>{esNuevo ? 'Nuevo pin' : 'Editar pin'}</h2>
             <p>{nombrePais(b.pais_codigo, b.pais)}</p>

@@ -108,14 +108,17 @@ async function nominatim(q: string, signal?: AbortSignal): Promise<Resultado[]> 
   return data.map(desdeNominatim).filter((x): x is Resultado => !!x)
 }
 
+const cerca = (a: Resultado, b: Resultado) =>
+  a.pais_codigo === b.pais_codigo && Math.abs(a.lat - b.lat) < 0.15 && Math.abs(a.lng - b.lng) < 0.15
+
+// Nominatim primero (ordena por importancia y da nombres en español: «Nápoles» → Italia),
+// después lo que Photon añada sin repetir.
 export async function buscar(q: string, signal?: AbortSignal): Promise<Resultado[]> {
-  try {
-    const r = await photon(q, signal)
-    if (r.length) return r
-  } catch (e) {
-    if ((e as Error).name === 'AbortError') throw e
-  }
-  return nominatim(q, signal)
+  const [n, p] = await Promise.allSettled([nominatim(q, signal), photon(q, signal)])
+  if (signal?.aborted) throw new DOMException('abortado', 'AbortError')
+  const out: Resultado[] = n.status === 'fulfilled' ? [...n.value] : []
+  if (p.status === 'fulfilled') for (const r of p.value) if (!out.some((x) => cerca(x, r))) out.push(r)
+  return out.slice(0, 8)
 }
 
 // Lugar (a nivel de ciudad) en unas coordenadas — para añadir pines con un clic

@@ -14,7 +14,8 @@ import L, { type Map as LMap } from 'leaflet'
 import { feature } from 'topojson-client'
 import type { Feature, FeatureCollection, Geometry } from 'geojson'
 import type { Lugar } from './supabase'
-import { bandera, nombrePais, numericoAAlfa2 } from './countries'
+import { nombrePais, numericoAAlfa2 } from './countries'
+import Bandera from './Bandera'
 
 type Props = {
   lugares: Lugar[]
@@ -198,7 +199,7 @@ export default function MapView(p: Props) {
           <Popup>
             <div className="popup">
               <div className="popup__titulo">
-                {bandera(l.pais_codigo)} <strong>{l.nombre}</strong>
+                <Bandera codigo={l.pais_codigo} alto={13} /> <strong>{l.nombre}</strong>
               </div>
               <div className="popup__sub">
                 {l.detalle || nombrePais(l.pais_codigo, l.pais)}
