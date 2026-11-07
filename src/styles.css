@@ -271,3 +271,33 @@ label.pais__color { cursor: pointer; }
 
 .bandera { display: inline-block; border-radius: 2px; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08); object-fit: cover; vertical-align: -2px; flex: none; }
 .form__flag .bandera { border-radius: 4px; }
+
+/* ---------- Entrada ---------- */
+.login {
+  min-height: 100%; display: grid; place-items: center; padding: 20px;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(42, 157, 143, 0.12), transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(217, 72, 15, 0.12), transparent 45%),
+    var(--papel);
+}
+.login__tarjeta { width: min(380px, 100%); padding: 28px 26px; }
+.login__marca { display: grid; place-items: center; filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.18)); }
+.login__titulo { font-family: var(--display); font-size: 32px; letter-spacing: -0.02em; text-align: center; margin: 0; }
+.login__sub { text-align: center; color: var(--tinta-2); margin: -8px 0 4px; font-size: 14px; }
+.btn--ancho { width: 100%; padding: 11px; font-size: 15px; }
+
+/* ---------- Cuenta ---------- */
+.cuenta { position: relative; }
+.cuenta__boton { display: flex; align-items: center; gap: 8px; color: var(--tinta); }
+.avatar {
+  width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--tinta); color: #fff; font-size: 12px; font-weight: 600;
+}
+.cuenta__menu {
+  position: absolute; right: 0; bottom: calc(100% + 6px); min-width: 200px; z-index: 10;
+  background: var(--papel-2); border: 1px solid var(--linea); border-radius: 12px; box-shadow: var(--sombra);
+  padding: 6px; display: grid;
+}
+.cuenta__menu small { color: var(--tinta-2); padding: 6px 10px 8px; font-size: 12px; border-bottom: 1px solid var(--linea); margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; }
+.cuenta__menu button { border: 0; background: none; text-align: left; padding: 8px 10px; border-radius: 8px; font-size: 14px; }
+.cuenta__menu button:hover { background: var(--acento-2); }
